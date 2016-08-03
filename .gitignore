@@ -2,3 +2,4 @@ vendor
 composer.lock
 clover.xml
 tests/testfile_*.txt
+ocular.phar
