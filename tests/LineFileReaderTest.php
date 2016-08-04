@@ -85,12 +85,12 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
         $line = '';
         foreach ($generator as $line) {
             if ($count === 0) {
-                self::assertSame("Line $firstLine\n", $line);
+                self::assertSame("Line $firstLine", $line, 'Expect first line');
             }
             $count++;
         }
 
-        self::assertSame("Line $lastLine\n", $line);
-        self::assertSame($lineCount, $count);
+        self::assertSame("Line $lastLine", $line, 'Expect last line');
+        self::assertSame($lineCount, $count, 'Expect total line count');
     }
 }

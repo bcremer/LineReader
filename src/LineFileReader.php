@@ -40,7 +40,7 @@ class LineFileReader
                 continue;
             }
 
-            yield $line;
+            yield rtrim($line, "\n");
         }
 
         fclose($fh);
