@@ -95,7 +95,7 @@ Example: Read the last 5 lines in forward order:
 
 ```php
 $reader = new \Bcremer\LineFileReader\LineFileReader();
-$lineGenerator = $this->reader->readLinesBackwards(self::$testFile);
+$lineGenerator = $this->reader->readLinesBackwards('some/file.txt');
 $lineGenerator = new \LimitIterator($lineGenerator, 0, 5);
 
 $lines = array_reverse(iterator_to_array($lineGenerator));
