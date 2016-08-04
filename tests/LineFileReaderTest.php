@@ -5,22 +5,25 @@ use Bcremer\LineFileReader\LineFileReader;
 
 class LineFileReaderTest extends \PHPUnit_Framework_TestCase
 {
+    private static $maxLines;
+    private static $testFile;
+
     /**
      * @var LineFileReader
      */
     private $reader;
 
-    const MAX_LINES = 100000;
-    const TEST_FILE = __DIR__.'/testfile_'.self::MAX_LINES.'.txt';
-
     static public function setUpBeforeClass()
     {
-        if (is_file(self::TEST_FILE)) {
+        self::$maxLines = (int)getenv('TEST_MAX_LINES') ?: 1000;
+        self::$testFile = __DIR__.'/testfile_'.self::$maxLines.'.txt';
+
+        if (is_file(self::$testFile)) {
             return;
         }
 
-        $fh = fopen(self::TEST_FILE, 'w');
-        for ($i = 1; $i <= self::MAX_LINES; $i++) {
+        $fh = fopen(self::$testFile, 'w');
+        for ($i = 1; $i <= self::$maxLines; $i++) {
             fwrite($fh, "Line $i\n");
         }
         fclose($fh);
@@ -41,29 +44,29 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testReadsAllLines()
     {
-        $result = $this->reader->readLines(self::TEST_FILE);
+        $result = $this->reader->readLines(self::$testFile);
 
         self::assertInstanceOf(\Traversable::class, $result);
 
         $firstLine = 1;
-        $lastLine = self::MAX_LINES;
-        $lineCount = self::MAX_LINES;
+        $lastLine = self::$maxLines;
+        $lineCount = self::$maxLines;
         $this->assertLines($result, $firstLine, $lastLine, $lineCount);
     }
 
     public function testReadsLinesByStartline()
     {
-        $result = $this->reader->readLines(self::TEST_FILE, 50);
+        $result = $this->reader->readLines(self::$testFile, 50);
 
         $firstLine = 50;
-        $lastLine = self::MAX_LINES;
-        $lineCount = self::MAX_LINES-49;
+        $lastLine = self::$maxLines;
+        $lineCount = self::$maxLines-49;
         $this->assertLines($result, $firstLine, $lastLine, $lineCount);
     }
 
     public function testReadsLinesByLimit()
     {
-        $result = $this->reader->readLines(self::TEST_FILE, 50, 100);
+        $result = $this->reader->readLines(self::$testFile, 50, 100);
 
         $firstLine = 50;
         $lastLine = 149;

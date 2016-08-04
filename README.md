@@ -5,6 +5,8 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 
+LineFileReader is a library to read large files line by line in a memory efficient (constant) way.
+
 ## Install
 
 Via Composer
@@ -26,6 +28,10 @@ foreach ($reader->readLines('some/file.txt') as $line) {
 
 ``` bash
 $ composer test
+```
+
+```bash
+$ TEST_MAX_LINES=200000 composer test
 ```
 
 ## License
