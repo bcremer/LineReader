@@ -17,13 +17,39 @@ $ composer require bcremer/line-file-reader
 
 ## Usage
 
+Given we have a textfile (`some/file.txt`) with lines like:
+
+```
+Line 1
+Line 2
+Line 3
+Line 4
+Line 5
+Line 6
+Line 7
+Line 8
+Line 9
+Line 10
+```
+
 ### Read forwards
 
 ```php
 $reader = new \Bcremer\LineFileReader\LineFileReader();
 foreach ($reader->readLines('some/file.txt') as $line) {
-    echo $line;
+    echo $line . "\n"
 }
+```
+
+The output will be:
+
+```
+Line 1
+Line 2
+Line 3
+Line 4
+Line 5
+...
 ```
 
 To set an offset or a limit use the `\LimitIterator`:
@@ -31,16 +57,23 @@ To set an offset or a limit use the `\LimitIterator`:
 ```php
 $reader = new \Bcremer\LineFileReader\LineFileReader();
 $lineGenerator = $reader->readLines('some/file.txt');
-$lineGenerator = new \LimitIterator($lineGenerator, 50, 100);
-
-// Will output line 51 to 150
+$lineGenerator = new \LimitIterator($lineGenerator, 2, 5);
 foreach ($lineGenerator as $line) {
-    echo $line;
+    echo $line . "\n"
 }
 ```
 
-### Read backwards
+Will output line 3 to 7
 
+```
+Line 3
+Line 4
+Line 5
+Line 6
+Line 7
+```
+
+### Read backwards
 
 ```php
 $reader = new \Bcremer\LineFileReader\LineFileReader();
@@ -49,14 +82,34 @@ foreach ($reader->readLinesBackwards('some/file.txt') as $line) {
 }
 ```
 
-Example: Read the last 10 line in forward order:
+```
+Line 10
+Line 9
+Line 8
+Line 7
+Line 6
+...
+```
+
+Example: Read the last 5 lines in forward order:
 
 ```php
 $reader = new \Bcremer\LineFileReader\LineFileReader();
 $lineGenerator = $this->reader->readLinesBackwards(self::$testFile);
-$lineGenerator = new \LimitIterator($lineGenerator, 0, 10);
+$lineGenerator = new \LimitIterator($lineGenerator, 0, 5);
 
 $lines = array_reverse(iterator_to_array($lineGenerator));
+foreach ($line as $line) {
+    echo $line;
+}
+```
+
+```
+Line 6
+Line 7
+Line 8
+Line 9
+Line 10
 ```
 
 ## Testing
