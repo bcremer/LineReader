@@ -19,6 +19,19 @@ class LineFileReader
     }
 
     /**
+     * @param string $filePath
+     * @return \Generator
+     */
+    public function readLinesBackwards($filePath)
+    {
+        if (!$fh = @fopen($filePath, 'r')) {
+            throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
+        }
+
+        $size = filesize($filePath);
+        return $this->readBackwards($fh, $size);
+    }
+    /**
      * @param resource $fh
      * @return \Generator
      */
@@ -31,5 +44,49 @@ class LineFileReader
         fclose($fh);
     }
 
+    /**
+     * Read a file from the end using a buffer.
+     *
+     * This is way more efficient than using the naive method
+     * of reading the file backwards byte by byte looking for
+     * a newline character.
+     *
+     * @see http://stackoverflow.com/a/10494801/147634
+     * @param resource $fh
+     * @param int $pos
+     * @return \Generator
+     */
+    private function readBackwards($fh, $pos)
+    {
+        $buffer = null;
+        $bufferSize = 4096;
+
+        while (true) {
+            if (isset($buffer[1])) { // faster than count($buffer) > 1
+                yield array_pop($buffer);
+                continue;
+            }
+
+            if ($pos === 0) {
+                yield array_pop($buffer);
+                break;
+            }
+
+            if ($bufferSize > $pos) {
+                $bufferSize = $pos;
+                $pos = 0;
+            } else {
+                $pos -= $bufferSize;
+            }
+            fseek($fh, $pos);
+            $chunk = fread($fh, $bufferSize);
+            if ($buffer) {
+                $buffer = explode("\n", $chunk . $buffer[0]);
+            } else {
+                $chunk = rtrim($chunk, "\n");
+                $buffer = explode("\n", $chunk);
+            }
+        }
+    }
 }
 

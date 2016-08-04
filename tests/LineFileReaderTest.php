@@ -15,7 +15,7 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
 
     static public function setUpBeforeClass()
     {
-        self::$maxLines = (int)getenv('TEST_MAX_LINES') ?: 1000;
+        self::$maxLines = (int)getenv('TEST_MAX_LINES') ?: 10000;
         self::$testFile = __DIR__.'/testfile_'.self::$maxLines.'.txt';
 
         if (is_file(self::$testFile)) {
@@ -56,24 +56,35 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testReadsLinesByStartline()
     {
-        $lineEmiter = $this->reader->readLines(self::$testFile);
-        $lineEmiter = new \LimitIterator($lineEmiter, 50);
+        $lineGenerator = $this->reader->readLines(self::$testFile);
+        $lineGenerator = new \LimitIterator($lineGenerator, 50);
 
         $firstLine = 51;
         $lastLine = self::$maxLines;
         $lineCount = self::$maxLines-50;
-        $this->assertLines($lineEmiter, $firstLine, $lastLine, $lineCount);
+        $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
     public function testReadsLinesByLimit()
     {
-        $lineEmiter = $this->reader->readLines(self::$testFile);
-        $lineEmiter = new \LimitIterator($lineEmiter, 50, 100);
+        $lineGenerator = $this->reader->readLines(self::$testFile);
+        $lineGenerator = new \LimitIterator($lineGenerator, 50, 100);
 
         $firstLine = 51;
         $lastLine = 150;
         $lineCount = 100;
-        $this->assertLines($lineEmiter, $firstLine, $lastLine, $lineCount);
+        $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
+    }
+
+    public function testReadsLinesBackwards()
+    {
+        $lineGenerator = $this->reader->readLinesBackwards(self::$testFile);
+        $lineGenerator = new \LimitIterator($lineGenerator, 10, 50);
+
+        $firstLine = self::$maxLines-10;
+        $lastLine = self::$maxLines-59;
+        $lineCount = 50;
+        $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
     /**

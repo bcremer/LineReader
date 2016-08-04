@@ -17,6 +17,8 @@ $ composer require bcremer/line-file-reader
 
 ## Usage
 
+### Read forwards
+
 ```php
 $reader = new \Bcremer\LineFileReader\LineFileReader();
 foreach ($reader->readLines('some/file.txt') as $line) {
@@ -35,8 +37,28 @@ $lineGenerator = new \LimitIterator($lineGenerator, 50, 100);
 foreach ($lineGenerator as $line) {
     echo $line;
 }
-
 ```
+
+### Read backwards
+
+
+```php
+$reader = new \Bcremer\LineFileReader\LineFileReader();
+foreach ($reader->readLinesBackwards('some/file.txt') as $line) {
+    echo $line;
+}
+```
+
+Example: Read the last 10 line in forward order:
+
+```php
+$reader = new \Bcremer\LineFileReader\LineFileReader();
+$lineGenerator = $this->reader->readLinesBackwards(self::$testFile);
+$lineGenerator = new \LimitIterator($lineGenerator, 0, 10);
+
+$lines = array_reverse(iterator_to_array($lineGenerator));
+```
+
 ## Testing
 
 ```bash
