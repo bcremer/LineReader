@@ -56,22 +56,24 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testReadsLinesByStartline()
     {
-        $result = $this->reader->readLines(self::$testFile, 50);
+        $lineEmiter = $this->reader->readLines(self::$testFile);
+        $lineEmiter = new \LimitIterator($lineEmiter, 50);
 
-        $firstLine = 50;
+        $firstLine = 51;
         $lastLine = self::$maxLines;
-        $lineCount = self::$maxLines-49;
-        $this->assertLines($result, $firstLine, $lastLine, $lineCount);
+        $lineCount = self::$maxLines-50;
+        $this->assertLines($lineEmiter, $firstLine, $lastLine, $lineCount);
     }
 
     public function testReadsLinesByLimit()
     {
-        $result = $this->reader->readLines(self::$testFile, 50, 100);
+        $lineEmiter = $this->reader->readLines(self::$testFile);
+        $lineEmiter = new \LimitIterator($lineEmiter, 50, 100);
 
-        $firstLine = 50;
-        $lastLine = 149;
+        $firstLine = 51;
+        $lastLine = 150;
         $lineCount = 100;
-        $this->assertLines($result, $firstLine, $lastLine, $lineCount);
+        $this->assertLines($lineEmiter, $firstLine, $lastLine, $lineCount);
     }
 
     /**

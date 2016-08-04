@@ -11,14 +11,14 @@ LineFileReader is a library to read large files line by line in a memory efficie
 
 Via Composer
 
-``` bash
+```bash
 $ composer require bcremer/line-file-reader
 ```
 
 ## Usage
 
-``` php
-$reader = new Bcremer\LineFileReader();
+```php
+$reader = new \Bcremer\LineFileReader\LineFileReader();
 foreach ($reader->readLines('some/file.txt') as $line) {
     echo $line;
 }
@@ -26,7 +26,7 @@ foreach ($reader->readLines('some/file.txt') as $line) {
 
 ## Testing
 
-``` bash
+```bash
 $ composer test
 ```
 

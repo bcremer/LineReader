@@ -6,43 +6,30 @@ class LineFileReader
 {
     /**
      * @param string $filePath
-     * @param int $startLine
-     * @param int|null $maxLines
-     * @return \Traversable
+     * @return \Generator
      * @throws \InvalidArgumentException if $filePath is not readable
      */
-    public function readLines($filePath, $startLine = 0, $maxLines = null)
+    public function readLines($filePath)
     {
         if (!$fh = @fopen($filePath, 'r')) {
             throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
         }
 
-        $iter = $this->read($startLine, $fh);
-
-        if ($maxLines) {
-            return new \LimitIterator($iter, null, $maxLines);
-        } else {
-            return $iter;
-        }
+        return $this->read($fh);
     }
 
     /**
-     * @param int $startLine
      * @param resource $fh
      * @return \Generator
      */
-    private function read($startLine, $fh)
+    private function read($fh)
     {
-        $lineCounter = 0;
         while (false !== $line = fgets($fh)) {
-            $lineCounter++;
-            if ($lineCounter < $startLine) {
-                continue;
-            }
-
             yield rtrim($line, "\n");
         }
 
         fclose($fh);
     }
+
 }
+
