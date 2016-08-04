@@ -1,7 +1,7 @@
 <?php
-namespace Bcremer\LineFileReaderTests;
+namespace Bcremer\LineReaderTests;
 
-use Bcremer\LineFileReader\LineReader;
+use Bcremer\LineReader\LineReader;
 
 class LineReaderTest extends \PHPUnit_Framework_TestCase
 {

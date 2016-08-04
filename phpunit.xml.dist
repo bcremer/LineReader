@@ -10,7 +10,7 @@
     processIsolation="false"
     backupGlobals="false"
     syntaxCheck="true">
-    <testsuite name="LineFileReader tests">
+    <testsuite name="LineReader tests">
         <directory>tests</directory>
     </testsuite>
     <filter>

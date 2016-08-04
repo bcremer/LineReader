@@ -1,6 +1,6 @@
 <?php
 
-namespace Bcremer\LineFileReader;
+namespace Bcremer\LineReader;
 
 final class LineReader
 {

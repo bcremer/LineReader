@@ -1,5 +1,5 @@
 {
-    "name": "bcremer/line-file-reader",
+    "name": "bcremer/line-reader",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -16,12 +16,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Bcremer\\LineFileReader\\": "src/"
+            "Bcremer\\LineReader\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Bcremer\\LineFileReaderTests\\": "tests/"
+            "Bcremer\\LineReaderTests\\": "tests/"
         }
     },
     "scripts": {
