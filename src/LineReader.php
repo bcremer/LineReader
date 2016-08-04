@@ -2,40 +2,48 @@
 
 namespace Bcremer\LineFileReader;
 
-class LineFileReader
+final class LineReader
 {
+    /**
+     * Prevent instantiation
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * @param string $filePath
      * @return \Generator
      * @throws \InvalidArgumentException if $filePath is not readable
      */
-    public function readLines($filePath)
+    public static function readLines($filePath)
     {
         if (!$fh = @fopen($filePath, 'r')) {
             throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
         }
 
-        return $this->read($fh);
+        return self::read($fh);
     }
 
     /**
      * @param string $filePath
      * @return \Generator
      */
-    public function readLinesBackwards($filePath)
+    public static function readLinesBackwards($filePath)
     {
         if (!$fh = @fopen($filePath, 'r')) {
             throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
         }
 
         $size = filesize($filePath);
-        return $this->readBackwards($fh, $size);
+        return self::readBackwards($fh, $size);
     }
+
     /**
      * @param resource $fh
      * @return \Generator
      */
-    private function read($fh)
+    private static function read($fh)
     {
         while (false !== $line = fgets($fh)) {
             yield rtrim($line, "\n");
@@ -56,7 +64,7 @@ class LineFileReader
      * @param int $pos
      * @return \Generator
      */
-    private function readBackwards($fh, $pos)
+    private static function readBackwards($fh, $pos)
     {
         $buffer = null;
         $bufferSize = 4096;
@@ -89,4 +97,3 @@ class LineFileReader
         }
     }
 }
-

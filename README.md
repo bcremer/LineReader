@@ -32,11 +32,16 @@ Line 9
 Line 10
 ```
 
+Also let's asume the namespace is imported to keep the examples dense:
+
+```
+use Bcremer\LineFileReader\LineReader;
+```
+
 ### Read forwards
 
 ```php
-$reader = new \Bcremer\LineFileReader\LineFileReader();
-foreach ($reader->readLines('some/file.txt') as $line) {
+foreach (LineReader::readLines('some/file.txt') as $line) {
     echo $line . "\n"
 }
 ```
@@ -55,8 +60,7 @@ Line 5
 To set an offset or a limit use the `\LimitIterator`:
 
 ```php
-$reader = new \Bcremer\LineFileReader\LineFileReader();
-$lineGenerator = $reader->readLines('some/file.txt');
+$lineGenerator = LineReader::readLines('some/file.txt');
 $lineGenerator = new \LimitIterator($lineGenerator, 2, 5);
 foreach ($lineGenerator as $line) {
     echo $line . "\n"
@@ -76,8 +80,7 @@ Line 7
 ### Read backwards
 
 ```php
-$reader = new \Bcremer\LineFileReader\LineFileReader();
-foreach ($reader->readLinesBackwards('some/file.txt') as $line) {
+foreach (LineReader::readLinesBackwards('some/file.txt') as $line) {
     echo $line;
 }
 ```
@@ -94,8 +97,7 @@ Line 6
 Example: Read the last 5 lines in forward order:
 
 ```php
-$reader = new \Bcremer\LineFileReader\LineFileReader();
-$lineGenerator = $this->reader->readLinesBackwards('some/file.txt');
+$lineGenerator = LineReader::readLinesBackwards('some/file.txt');
 $lineGenerator = new \LimitIterator($lineGenerator, 0, 5);
 
 $lines = array_reverse(iterator_to_array($lineGenerator));

@@ -1,17 +1,12 @@
 <?php
 namespace Bcremer\LineFileReaderTests;
 
-use Bcremer\LineFileReader\LineFileReader;
+use Bcremer\LineFileReader\LineReader;
 
-class LineFileReaderTest extends \PHPUnit_Framework_TestCase
+class LineReaderTest extends \PHPUnit_Framework_TestCase
 {
     private static $maxLines;
     private static $testFile;
-
-    /**
-     * @var LineFileReader
-     */
-    private $reader;
 
     static public function setUpBeforeClass()
     {
@@ -29,22 +24,17 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
         fclose($fh);
     }
 
-    protected function setUp()
-    {
-        $this->reader = new LineFileReader();
-    }
-
     public function testThrowsException()
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $result = $this->reader->readLines('/tmp/invalid-file.txt');
+        $result = LineReader::readLines('/tmp/invalid-file.txt');
         iterator_to_array($result);
     }
 
     public function testReadsAllLines()
     {
-        $result = $this->reader->readLines(self::$testFile);
+        $result = LineReader::readLines(self::$testFile);
 
         self::assertInstanceOf(\Traversable::class, $result);
 
@@ -56,7 +46,7 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testReadsLinesByStartline()
     {
-        $lineGenerator = $this->reader->readLines(self::$testFile);
+        $lineGenerator = LineReader::readLines(self::$testFile);
         $lineGenerator = new \LimitIterator($lineGenerator, 50);
 
         $firstLine = 51;
@@ -67,7 +57,7 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testReadsLinesByLimit()
     {
-        $lineGenerator = $this->reader->readLines(self::$testFile);
+        $lineGenerator = LineReader::readLines(self::$testFile);
         $lineGenerator = new \LimitIterator($lineGenerator, 50, 100);
 
         $firstLine = 51;
@@ -78,7 +68,7 @@ class LineFileReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testReadsLinesBackwards()
     {
-        $lineGenerator = $this->reader->readLinesBackwards(self::$testFile);
+        $lineGenerator = LineReader::readLinesBackwards(self::$testFile);
         $lineGenerator = new \LimitIterator($lineGenerator, 10, 50);
 
         $firstLine = self::$maxLines-10;
