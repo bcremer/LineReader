@@ -24,6 +24,19 @@ foreach ($reader->readLines('some/file.txt') as $line) {
 }
 ```
 
+To set an offset or a limit use the `\LimitIterator`:
+
+```php
+$reader = new \Bcremer\LineFileReader\LineFileReader();
+$lineGenerator = $reader->readLines('some/file.txt);
+$lineGenerator = new \LimitIterator($lineGenerator, 50, 100);
+
+// Will output line 51 to 150
+foreach ($lineGenerator as $line) {
+    echo $line;
+}
+
+```
 ## Testing
 
 ```bash
