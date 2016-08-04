@@ -126,7 +126,7 @@ $ TEST_MAX_LINES=200000 composer test
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/bcremer/LineReader/master.svg?style=flat-square
