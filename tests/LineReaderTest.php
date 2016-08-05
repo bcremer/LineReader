@@ -33,12 +33,23 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
         new LineReader();
     }
 
+    public function testReadLinesExceptionIsLazy()
+    {
+        self::assertInstanceOf(\Generator::class, LineReader::readLines('/tmp/invalid-file.txt'));
+    }
+
     public function testReadLinesThrowsException()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot open file for reading: /tmp/invalid-file.txt');
 
-        LineReader::readLines('/tmp/invalid-file.txt');
+        iterator_to_array(LineReader::readLines('/tmp/invalid-file.txt'));
+    }
+
+
+    public function testReadLinesBackwardsExceptionIsLazy()
+    {
+        self::assertInstanceOf(\Generator::class, LineReader::readLinesBackwards('/tmp/invalid-file.txt'));
     }
 
     public function testReadLinesBackwardsThrowsException()
@@ -46,7 +57,7 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot open file for reading: /tmp/invalid-file.txt');
 
-        LineReader::readLinesBackwards('/tmp/invalid-file.txt');
+        iterator_to_array(LineReader::readLines('/tmp/invalid-file.txt'));
     }
 
     public function testReadsAllLines()

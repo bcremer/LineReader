@@ -16,11 +16,7 @@ final class LineReader
      */
     public static function readLines($filePath)
     {
-        if (!$fh = @fopen($filePath, 'r')) {
-            throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
-        }
-
-        return self::read($fh);
+        return self::read($filePath);
     }
 
     /**
@@ -29,21 +25,19 @@ final class LineReader
      */
     public static function readLinesBackwards($filePath)
     {
+        return self::readBackwards($filePath);
+    }
+
+    /**
+     * @param string $filePath
+     * @return \Generator
+     */
+    private static function read($filePath)
+    {
         if (!$fh = @fopen($filePath, 'r')) {
             throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
         }
 
-        $size = filesize($filePath);
-
-        return self::readBackwards($fh, $size);
-    }
-
-    /**
-     * @param resource $fh
-     * @return \Generator
-     */
-    private static function read($fh)
-    {
         while (false !== $line = fgets($fh)) {
             yield rtrim($line, "\n");
         }
@@ -59,18 +53,22 @@ final class LineReader
      * a newline character.
      *
      * @see http://stackoverflow.com/a/10494801/147634
-     * @param resource $fh
-     * @param int $pos
+     * @param string $filePath
      * @return \Generator
      */
-    private static function readBackwards($fh, $pos)
+    private static function readBackwards($filePath)
     {
-        $buffer = null;
-        $bufferSize = 4096;
+        if (!$fh = @fopen($filePath, 'r')) {
+            throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
+        }
 
+        $pos = filesize($filePath);
         if ($pos === 0) {
             return;
         }
+
+        $buffer = null;
+        $bufferSize = 4096;
 
         while (true) {
             if (isset($buffer[1])) { // faster than count($buffer) > 1
