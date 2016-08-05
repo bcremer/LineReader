@@ -36,17 +36,17 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
     public function testReadLinesThrowsException()
     {
         $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot open file for reading: /tmp/invalid-file.txt');
 
-        $result = LineReader::readLines('/tmp/invalid-file.txt');
-        iterator_to_array($result);
+        LineReader::readLines('/tmp/invalid-file.txt');
     }
 
     public function testReadLinesBackwardsThrowsException()
     {
         $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Cannot open file for reading: /tmp/invalid-file.txt');
 
-        $result = LineReader::readLinesBackwards('/tmp/invalid-file.txt');
-        iterator_to_array($result);
+        LineReader::readLinesBackwards('/tmp/invalid-file.txt');
     }
 
     public function testReadsAllLines()
