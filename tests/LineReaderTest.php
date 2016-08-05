@@ -24,11 +24,19 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
         fclose($fh);
     }
 
-    public function testThrowsException()
+    public function testReadLinesThrowsException()
     {
         $this->expectException(\InvalidArgumentException::class);
 
         $result = LineReader::readLines('/tmp/invalid-file.txt');
+        iterator_to_array($result);
+    }
+
+    public function testReadLinesBackwardsThrowsException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $result = LineReader::readLinesBackwards('/tmp/invalid-file.txt');
         iterator_to_array($result);
     }
 
@@ -67,6 +75,16 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testReadsLinesBackwards()
+    {
+        $lineGenerator = LineReader::readLinesBackwards(self::$testFile);
+
+        $firstLine = self::$maxLines;
+        $lastLine = 1;
+        $lineCount = self::$maxLines;
+        $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
+    }
+
+    public function testReadsLinesBackwardsWithOffsetAndLimit()
     {
         $lineGenerator = LineReader::readLinesBackwards(self::$testFile);
         $lineGenerator = new \LimitIterator($lineGenerator, 10, 50);
