@@ -24,6 +24,9 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
         fclose($fh);
     }
 
+    /**
+     * @requires PHP 7.0
+     */
     public function testCanNotBeInstantiated()
     {
         $this->expectException(\Error::class);
