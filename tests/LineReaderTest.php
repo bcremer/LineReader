@@ -104,6 +104,19 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
+    public function testEmptyFile()
+    {
+        $testFile = __DIR__.'/testfile_empty.txt';
+        $content = '';
+        file_put_contents($testFile, $content);
+
+        $lineGenerator = LineReader::readLines($testFile);
+        self::assertSame([], iterator_to_array($lineGenerator));
+
+        $lineGenerator = LineReader::readLinesBackwards($testFile);
+        self::assertSame([], iterator_to_array($lineGenerator));
+    }
+
     /**
      * Runs the generator and asserts on first, last and the total line count
      *

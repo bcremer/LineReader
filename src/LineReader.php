@@ -34,6 +34,7 @@ final class LineReader
         }
 
         $size = filesize($filePath);
+
         return self::readBackwards($fh, $size);
     }
 
@@ -66,6 +67,10 @@ final class LineReader
     {
         $buffer = null;
         $bufferSize = 4096;
+
+        if ($pos === 0) {
+            return;
+        }
 
         while (true) {
             if (isset($buffer[1])) { // faster than count($buffer) > 1
