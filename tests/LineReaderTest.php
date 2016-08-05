@@ -24,6 +24,12 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
         fclose($fh);
     }
 
+    public function testCanNotBeInstantiated()
+    {
+        $this->expectException(\Error::class);
+        new LineReader();
+    }
+
     public function testReadLinesThrowsException()
     {
         $this->expectException(\InvalidArgumentException::class);
