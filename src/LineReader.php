@@ -26,6 +26,7 @@ final class LineReader
     /**
      * @param string $filePath
      * @return \Generator
+     * @throws \InvalidArgumentException if $filePath is not readable
      */
     public static function readLinesBackwards($filePath)
     {
@@ -91,11 +92,14 @@ final class LineReader
             }
             fseek($fh, $pos);
             $chunk = fread($fh, $bufferSize);
-            if ($buffer) {
-                $buffer = explode("\n", $chunk . $buffer[0]);
-            } else {
-                $chunk = rtrim($chunk, "\n");
+            if ($buffer === null) {
+                // remove single traling newline, rtrim cannot be used here
+                if (substr($chunk, -1) === "\n") {
+                    $chunk = substr($chunk, 0, -1);
+                }
                 $buffer = explode("\n", $chunk);
+            } else {
+                $buffer = explode("\n", $chunk . $buffer[0]);
             }
         }
     }

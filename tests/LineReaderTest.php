@@ -117,6 +117,53 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
         self::assertSame([], iterator_to_array($lineGenerator));
     }
 
+    public function testFileWithLeadingAndTrailingNewlines()
+    {
+        $testFile = __DIR__.'/testfile_space.txt';
+
+        $content = <<<CONTENT
+
+
+Line 1
+
+
+Line 4
+Line 5
+
+
+CONTENT;
+
+        file_put_contents($testFile, $content);
+
+        self::assertSame(
+            [
+                '',
+                '',
+                'Line 1',
+                '',
+                '',
+                'Line 4',
+                'Line 5',
+                '',
+            ],
+            iterator_to_array(LineReader::readLines($testFile))
+        );
+
+        self::assertSame(
+            [
+                '',
+                'Line 5',
+                'Line 4',
+                '',
+                '',
+                'Line 1',
+                '',
+                '',
+            ],
+            iterator_to_array(LineReader::readLinesBackwards($testFile))
+        );
+    }
+
     /**
      * Runs the generator and asserts on first, last and the total line count
      *
