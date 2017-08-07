@@ -33,7 +33,7 @@ Line 9
 Line 10
 ```
 
-Also let's asume the namespace is imported to keep the examples dense:
+Also let's assume the namespace is imported to keep the examples dense:
 
 ```
 use Bcremer\LineReader\LineReader;

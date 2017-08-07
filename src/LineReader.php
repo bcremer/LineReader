@@ -93,7 +93,7 @@ final class LineReader
             fseek($fh, $pos);
             $chunk = fread($fh, $bufferSize);
             if ($buffer === null) {
-                // remove single traling newline, rtrim cannot be used here
+                // remove single trailing newline, rtrim cannot be used here
                 if (substr($chunk, -1) === "\n") {
                     $chunk = substr($chunk, 0, -1);
                 }
