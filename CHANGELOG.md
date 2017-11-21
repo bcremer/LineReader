@@ -1,3 +1,10 @@
+## 1.0.0
+
+- First stable release
+- Bumped minimum PHP Version to 7.1
+- Introduced support for PHP 7.2
+- Adde scalar type hints
+
 ## 0.2.0
 
 - Introduced support for PHP 7.1
