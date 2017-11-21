@@ -2,13 +2,14 @@
 namespace Bcremer\LineReaderTests;
 
 use Bcremer\LineReader\LineReader;
+use PHPUnit\Framework\TestCase;
 
-class LineReaderTest extends \PHPUnit_Framework_TestCase
+class LineReaderTest extends TestCase
 {
     private static $maxLines;
     private static $testFile;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         self::$maxLines = (int)getenv('TEST_MAX_LINES') ?: 10000;
         self::$testFile = __DIR__.'/testfile_'.self::$maxLines.'.txt';
@@ -24,9 +25,6 @@ class LineReaderTest extends \PHPUnit_Framework_TestCase
         fclose($fh);
     }
 
-    /**
-     * @requires PHP 7.0
-     */
     public function testCanNotBeInstantiated()
     {
         $this->expectException(\Error::class);

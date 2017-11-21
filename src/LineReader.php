@@ -14,7 +14,7 @@ final class LineReader
      * @return \Generator
      * @throws \InvalidArgumentException if $filePath is not readable
      */
-    public static function readLines($filePath)
+    public static function readLines(string $filePath): \Generator
     {
         if (!$fh = @fopen($filePath, 'r')) {
             throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
@@ -28,7 +28,7 @@ final class LineReader
      * @return \Generator
      * @throws \InvalidArgumentException if $filePath is not readable
      */
-    public static function readLinesBackwards($filePath)
+    public static function readLinesBackwards(string $filePath): \Generator
     {
         if (!$fh = @fopen($filePath, 'r')) {
             throw new \InvalidArgumentException('Cannot open file for reading: ' . $filePath);
@@ -43,7 +43,7 @@ final class LineReader
      * @param resource $fh
      * @return \Generator
      */
-    private static function read($fh)
+    private static function read($fh): \Generator
     {
         while (false !== $line = fgets($fh)) {
             yield rtrim($line, "\n");
@@ -64,7 +64,7 @@ final class LineReader
      * @param int $pos
      * @return \Generator
      */
-    private static function readBackwards($fh, $pos)
+    private static function readBackwards($fh, int $pos): \Generator
     {
         $buffer = null;
         $bufferSize = 4096;
