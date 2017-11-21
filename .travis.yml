@@ -21,6 +21,7 @@ script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=clover.xml
   - vendor/bin/humbug
   - ./build/check-humbug-mutators.php
+  - vendor/bin/infection --threads=4 --min-msi=96 --min-covered-msi=99
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
