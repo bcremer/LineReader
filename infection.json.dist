@@ -4,5 +4,8 @@
             "src"
         ]
     },
+    "logs": {
+        "text": "infection-log.txt"
+    },
     "timeout": 2
 }
