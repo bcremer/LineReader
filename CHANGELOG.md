@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Introduced support for PHP 7.3
+
 ## 1.0.0
 
 - First stable release
