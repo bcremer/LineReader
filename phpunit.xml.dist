@@ -13,13 +13,12 @@
          failOnWarning="true"
          colors="true"
          verbose="true">
-
+    <coverage>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </coverage>
     <testsuite name="LineReader tests">
         <directory>tests</directory>
     </testsuite>
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
 </phpunit>

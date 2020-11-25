@@ -2,9 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
+[![Build Status][ico-ghactions]][link-ghactions]
 
 LineReader is a library to read large files line by line in a memory efficient (constant) way.
 
@@ -131,11 +129,6 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/bcremer/line-reader.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/bcremer/LineReader/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/bcremer/LineReader.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/bcremer/LineReader.svg?style=flat-square
-
 [link-packagist]: https://packagist.org/packages/bcremer/line-reader
-[link-travis]: https://travis-ci.org/bcremer/LineReader
-[link-scrutinizer]: https://scrutinizer-ci.com/g/bcremer/LineReader/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/bcremer/LineReader
+[ico-ghactions]: https://github.com/bcremer/LineReader/workflows/Build/badge.svg
+[link-ghactions]: https://github.com/bcremer/LineReader/actions?query=workflow%3ABuild

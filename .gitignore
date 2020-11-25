@@ -2,5 +2,5 @@ vendor
 composer.lock
 clover.xml
 tests/testfile_*.txt
-ocular.phar
 infection-log.txt
+.phpunit.result.cache
