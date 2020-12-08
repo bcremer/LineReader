@@ -9,7 +9,7 @@ class LineReaderTest extends TestCase
     private static $maxLines;
     private static $testFile;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$maxLines = (int)getenv('TEST_MAX_LINES') ?: 10000;
         self::$testFile = __DIR__.'/testfile_'.self::$maxLines.'.txt';
@@ -25,13 +25,7 @@ class LineReaderTest extends TestCase
         fclose($fh);
     }
 
-    public function testCanNotBeInstantiated()
-    {
-        $this->expectException(\Error::class);
-        new LineReader();
-    }
-
-    public function testReadLinesThrowsException()
+    public function testReadLinesThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot open file for reading: /tmp/invalid-file.txt');
@@ -39,7 +33,7 @@ class LineReaderTest extends TestCase
         LineReader::readLines('/tmp/invalid-file.txt');
     }
 
-    public function testReadLinesBackwardsThrowsException()
+    public function testReadLinesBackwardsThrowsException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot open file for reading: /tmp/invalid-file.txt');
@@ -47,7 +41,7 @@ class LineReaderTest extends TestCase
         LineReader::readLinesBackwards('/tmp/invalid-file.txt');
     }
 
-    public function testReadsAllLines()
+    public function testReadsAllLines(): void
     {
         $result = LineReader::readLines(self::$testFile);
 
@@ -59,7 +53,7 @@ class LineReaderTest extends TestCase
         $this->assertLines($result, $firstLine, $lastLine, $lineCount);
     }
 
-    public function testReadsLinesByStartline()
+    public function testReadsLinesByStartline(): void
     {
         $lineGenerator = LineReader::readLines(self::$testFile);
         $lineGenerator = new \LimitIterator($lineGenerator, 50);
@@ -70,7 +64,7 @@ class LineReaderTest extends TestCase
         $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
-    public function testReadsLinesByLimit()
+    public function testReadsLinesByLimit(): void
     {
         $lineGenerator = LineReader::readLines(self::$testFile);
         $lineGenerator = new \LimitIterator($lineGenerator, 50, 100);
@@ -81,7 +75,7 @@ class LineReaderTest extends TestCase
         $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
-    public function testReadsLinesBackwards()
+    public function testReadsLinesBackwards(): void
     {
         $lineGenerator = LineReader::readLinesBackwards(self::$testFile);
 
@@ -91,7 +85,7 @@ class LineReaderTest extends TestCase
         $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
-    public function testReadsLinesBackwardsWithOffsetAndLimit()
+    public function testReadsLinesBackwardsWithOffsetAndLimit(): void
     {
         $lineGenerator = LineReader::readLinesBackwards(self::$testFile);
         $lineGenerator = new \LimitIterator($lineGenerator, 10, 50);
@@ -102,7 +96,7 @@ class LineReaderTest extends TestCase
         $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
-    public function testEmptyFile()
+    public function testEmptyFile(): void
     {
         $testFile = __DIR__.'/testfile_empty.txt';
         $content = '';
@@ -115,7 +109,7 @@ class LineReaderTest extends TestCase
         self::assertSame([], iterator_to_array($lineGenerator));
     }
 
-    public function testFileWithLeadingAndTrailingNewlines()
+    public function testFileWithLeadingAndTrailingNewlines(): void
     {
         $testFile = __DIR__.'/testfile_space.txt';
 
@@ -166,11 +160,8 @@ CONTENT;
      * Runs the generator and asserts on first, last and the total line count
      *
      * @param \Traversable $generator
-     * @param int $firstLine
-     * @param int $lastLine
-     * @param int $lineCount
      */
-    private function assertLines(\Traversable $generator, $firstLine, $lastLine, $lineCount)
+    private function assertLines(\Traversable $generator, string $firstLine, int $lastLine, int $lineCount): void
     {
         $count = 0;
         $line = '';
