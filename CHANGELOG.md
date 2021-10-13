@@ -1,3 +1,6 @@
+## 1.2.0
+- Introduced support for PHP 8.1
+
 ## 1.1.0
 - Introduced support for PHP 7.4
 - Introduced support for PHP 8.0
