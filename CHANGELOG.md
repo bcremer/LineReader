@@ -1,3 +1,6 @@
+## 1.3.0
+- Introduced support for PHP 8.2
+
 ## 1.2.0
 - Introduced support for PHP 8.1
 
@@ -29,5 +32,3 @@
 ## 0.1.0
 
 - Initial Release
-
-
