@@ -9,15 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 class LineReaderTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private static $maxLines;
+    private static int $maxLines;
 
-    /**
-     * @var string
-     */
-    private static $testFile;
+    private static string $testFile;
 
     public static function setUpBeforeClass(): void
     {

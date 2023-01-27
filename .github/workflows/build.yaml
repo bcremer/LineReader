@@ -20,7 +20,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           coverage: none
-          php-version: ${{ matrix.php-version }}
+          php-version: 7.4
 
       - name: Determine composer cache directory
         id: determine-composer-cache-directory
@@ -30,8 +30,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.determine-composer-cache-directory.outputs.directory }}
-          key: php-${{ matrix.php-version }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: php-${{ matrix.php-version }}-composer-
+          key: php-7.4-composer-${{ hashFiles('composer.json') }}
+          restore-keys: php-7.4-composer-
 
       - name: Install dependencies
         run: composer install --no-interaction --no-progress
@@ -48,7 +48,6 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - 7.3
           - 7.4
           - 8.0
           - 8.1

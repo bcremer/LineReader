@@ -2,6 +2,7 @@
 - Introduced support for PHP 8.2
 - Added code style fixer
 - Added PHPStan analysis
+- Drop support for PHP 7.3
 
 ## 1.2.0
 - Introduced support for PHP 8.1
