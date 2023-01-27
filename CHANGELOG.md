@@ -1,6 +1,7 @@
 ## 1.3.0
 - Introduced support for PHP 8.2
 - Added code style fixer
+- Added PHPStan analysis
 
 ## 1.2.0
 - Introduced support for PHP 8.1
@@ -9,7 +10,7 @@
 - Introduced support for PHP 7.4
 - Introduced support for PHP 8.0
 - Bumped minimum PHP Version to 7.3
-- Introduced github actions
+- Introduced GitHub actions
 
 ## 1.0.1
 

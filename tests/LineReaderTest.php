@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bcremer\LineReaderTests;
 
 use Bcremer\LineReader\LineReader;
@@ -7,7 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class LineReaderTest extends TestCase
 {
+    /**
+     * @var int
+     */
     private static $maxLines;
+
+    /**
+     * @var string
+     */
     private static $testFile;
 
     public static function setUpBeforeClass(): void
@@ -20,6 +29,7 @@ class LineReaderTest extends TestCase
         }
 
         $fh = fopen(self::$testFile, 'w');
+        self::assertIsResource($fh);
         for ($i = 1; $i <= self::$maxLines; $i++) {
             fwrite($fh, "Line $i\n");
         }
@@ -45,8 +55,6 @@ class LineReaderTest extends TestCase
     public function testReadsAllLines(): void
     {
         $result = LineReader::readLines(self::$testFile);
-
-        self::assertInstanceOf(\Traversable::class, $result);
 
         $firstLine = 1;
         $lastLine = self::$maxLines;
@@ -159,19 +167,21 @@ CONTENT;
 
     /**
      * Runs the generator and asserts on first, last and the total line count
+     *
+     * @param \Traversable<string> $generator
      */
-    private function assertLines(\Traversable $generator, string $firstLine, int $lastLine, int $lineCount): void
+    private function assertLines(\Traversable $generator, int $firstLine, int $lastLine, int $lineCount): void
     {
         $count = 0;
         $line = '';
         foreach ($generator as $line) {
             if ($count === 0) {
-                self::assertSame("Line $firstLine", $line, 'Expect first line');
+                self::assertSame(sprintf('Line %s', $firstLine), $line, 'Expect first line');
             }
             $count++;
         }
 
-        self::assertSame("Line $lastLine", $line, 'Expect last line');
+        self::assertSame(sprintf('Line %s', $lastLine), $line, 'Expect last line');
         self::assertSame($lineCount, $count, 'Expect total line count');
     }
 }
