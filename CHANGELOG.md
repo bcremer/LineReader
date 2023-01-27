@@ -1,5 +1,6 @@
 ## 1.3.0
 - Introduced support for PHP 8.2
+- Added code style fixer
 
 ## 1.2.0
 - Introduced support for PHP 8.1

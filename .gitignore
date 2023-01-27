@@ -5,3 +5,4 @@ tests/testfile_*.txt
 infection-log.txt
 .phpunit.result.cache
 .idea
+.php-cs-fixer.cache

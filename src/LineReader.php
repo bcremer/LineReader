@@ -7,11 +7,11 @@ final class LineReader
     /**
      * Prevent instantiation
      */
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
-     * @param string $filePath
-     * @return \Generator
      * @throws \InvalidArgumentException if $filePath is not readable
      */
     public static function readLines(string $filePath): \Generator
@@ -24,8 +24,6 @@ final class LineReader
     }
 
     /**
-     * @param string $filePath
-     * @return \Generator
      * @throws \InvalidArgumentException if $filePath is not readable
      */
     public static function readLinesBackwards(string $filePath): \Generator
@@ -41,7 +39,6 @@ final class LineReader
 
     /**
      * @param resource $fh
-     * @return \Generator
      */
     private static function read($fh): \Generator
     {
@@ -60,9 +57,8 @@ final class LineReader
      * a newline character.
      *
      * @see http://stackoverflow.com/a/10494801/147634
+     *
      * @param resource $fh
-     * @param int $pos
-     * @return \Generator
      */
     private static function readBackwards($fh, int $pos): \Generator
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Bcremer\LineReaderTests;
 
 use Bcremer\LineReader\LineReader;
@@ -11,8 +12,8 @@ class LineReaderTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        self::$maxLines = (int)getenv('TEST_MAX_LINES') ?: 10000;
-        self::$testFile = __DIR__.'/testfile_'.self::$maxLines.'.txt';
+        self::$maxLines = (int) getenv('TEST_MAX_LINES') ?: 10000;
+        self::$testFile = __DIR__ . '/testfile_' . self::$maxLines . '.txt';
 
         if (is_file(self::$testFile)) {
             return;
@@ -60,7 +61,7 @@ class LineReaderTest extends TestCase
 
         $firstLine = 51;
         $lastLine = self::$maxLines;
-        $lineCount = self::$maxLines-50;
+        $lineCount = self::$maxLines - 50;
         $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
@@ -90,15 +91,15 @@ class LineReaderTest extends TestCase
         $lineGenerator = LineReader::readLinesBackwards(self::$testFile);
         $lineGenerator = new \LimitIterator($lineGenerator, 10, 50);
 
-        $firstLine = self::$maxLines-10;
-        $lastLine = self::$maxLines-59;
+        $firstLine = self::$maxLines - 10;
+        $lastLine = self::$maxLines - 59;
         $lineCount = 50;
         $this->assertLines($lineGenerator, $firstLine, $lastLine, $lineCount);
     }
 
     public function testEmptyFile(): void
     {
-        $testFile = __DIR__.'/testfile_empty.txt';
+        $testFile = __DIR__ . '/testfile_empty.txt';
         $content = '';
         file_put_contents($testFile, $content);
 
@@ -111,7 +112,7 @@ class LineReaderTest extends TestCase
 
     public function testFileWithLeadingAndTrailingNewlines(): void
     {
-        $testFile = __DIR__.'/testfile_space.txt';
+        $testFile = __DIR__ . '/testfile_space.txt';
 
         $content = <<<CONTENT
 
@@ -158,8 +159,6 @@ CONTENT;
 
     /**
      * Runs the generator and asserts on first, last and the total line count
-     *
-     * @param \Traversable $generator
      */
     private function assertLines(\Traversable $generator, string $firstLine, int $lastLine, int $lineCount): void
     {
